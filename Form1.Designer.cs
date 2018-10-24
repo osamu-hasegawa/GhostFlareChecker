@@ -10319,6 +10319,7 @@
             // 
             // timer7
             // 
+            this.timer7.Interval = 1;
             this.timer7.Tick += new System.EventHandler(this.timer7_Tick);
             // 
             // groupBox4

@@ -1335,7 +1335,27 @@ namespace GhostFlareChecker
 					else if(ledtable[i].isPass == true)
 					{
 						gPos = i;
-						if(numOfout == 2)//GHOSTの2つ目の島の場合
+						sumInfo.ledPosition = i + 1;//LED位置を保存
+						if(numOfout == 1)//GHOSTの1つ目の島の場合
+						{
+							sumInfo.fst_most_outside_x = most_outer_x;//中心X座標を保存。GHOST判定に使用
+							sumInfo.fst_most_outside_y = most_outer_y;//中心Y座標を保存。GHOST判定に使用
+
+							sumInfo.fst_most_outside_menseki = sumInfo.menseki;
+							sumInfo.fst_most_outside_shuicho = sumInfo.shuicho;
+							sumInfo.fst_most_outside_enkeido = sumInfo.enkeido;
+
+							sumInfo.sum_most_outside_menseki += sumInfo.menseki;//面積の合計
+//							ledtable[i].fst_most_outside_menseki = sumInfo.sum_most_outside_menseki;
+//
+//							ledtable[i].fst_most_outside_x = most_outer_x;//中心X座標を保存。GHOST判定に使用
+//							ledtable[i].fst_most_outside_y = most_outer_y;//中心Y座標を保存。GHOST判定に使用
+//
+//							ledtable[i].fst_most_outside_menseki = sumInfo.menseki;
+//							ledtable[i].fst_most_outside_shuicho = sumInfo.shuicho;
+//							ledtable[i].fst_most_outside_enkeido = sumInfo.enkeido;
+						}
+						else if(numOfout == 2)//GHOSTの2つ目の島の場合
 						{
 							sumInfo.snd_most_outside_x = most_outer_x;//中心X座標を保存。GHOST判定に使用
 							sumInfo.snd_most_outside_y = most_outer_y;//中心Y座標を保存。GHOST判定に使用
@@ -1345,14 +1365,14 @@ namespace GhostFlareChecker
 							sumInfo.snd_most_outside_enkeido = sumInfo.enkeido;
 
 							sumInfo.sum_most_outside_menseki += sumInfo.menseki;//面積の合計
-							ledtable[i].sum_most_outside_menseki = sumInfo.sum_most_outside_menseki;
-
-							ledtable[i].snd_most_outside_x = most_outer_x;//中心X座標を保存。GHOST判定に使用
-							ledtable[i].snd_most_outside_y = most_outer_y;//中心Y座標を保存。GHOST判定に使用
-
-							ledtable[i].snd_most_outside_menseki = sumInfo.menseki;
-							ledtable[i].snd_most_outside_shuicho = sumInfo.shuicho;
-							ledtable[i].snd_most_outside_enkeido = sumInfo.enkeido;
+//							ledtable[i].sum_most_outside_menseki = sumInfo.sum_most_outside_menseki;
+//
+//							ledtable[i].snd_most_outside_x = most_outer_x;//中心X座標を保存。GHOST判定に使用
+//							ledtable[i].snd_most_outside_y = most_outer_y;//中心Y座標を保存。GHOST判定に使用
+//
+//							ledtable[i].snd_most_outside_menseki = sumInfo.menseki;
+//							ledtable[i].snd_most_outside_shuicho = sumInfo.shuicho;
+//							ledtable[i].snd_most_outside_enkeido = sumInfo.enkeido;
 						}
 						else if(numOfout == 3)//GHOSTの3つ目の島の場合
 						{
@@ -1364,25 +1384,26 @@ namespace GhostFlareChecker
 							sumInfo.trd_most_outside_enkeido = sumInfo.enkeido;
 
 							sumInfo.sum_most_outside_menseki += sumInfo.menseki;//面積の合計
-							ledtable[i].sum_most_outside_menseki = sumInfo.sum_most_outside_menseki;
-
-							ledtable[i].trd_most_outside_x = most_outer_x;//中心X座標を保存。GHOST判定に使用
-							ledtable[i].trd_most_outside_y = most_outer_y;//中心Y座標を保存。GHOST判定に使用
-
-							ledtable[i].trd_most_outside_menseki = sumInfo.menseki;
-							ledtable[i].trd_most_outside_shuicho = sumInfo.shuicho;
-							ledtable[i].trd_most_outside_enkeido = sumInfo.enkeido;
+//							ledtable[i].sum_most_outside_menseki = sumInfo.sum_most_outside_menseki;
+//
+//							ledtable[i].trd_most_outside_x = most_outer_x;//中心X座標を保存。GHOST判定に使用
+//							ledtable[i].trd_most_outside_y = most_outer_y;//中心Y座標を保存。GHOST判定に使用
+//
+//							ledtable[i].trd_most_outside_menseki = sumInfo.menseki;
+//							ledtable[i].trd_most_outside_shuicho = sumInfo.shuicho;
+//							ledtable[i].trd_most_outside_enkeido = sumInfo.enkeido;
 						}
 						else//GHOSTの島が4つ以上ある場合
 						{
 							sumInfo.sum_most_outside_menseki += sumInfo.menseki;//面積の合計
-							ledtable[i].sum_most_outside_menseki = sumInfo.sum_most_outside_menseki;
+//							ledtable[i].sum_most_outside_menseki = sumInfo.sum_most_outside_menseki;
 						}
 					}
 
 					if(ledtable[i].isPass == true && ledtable[i].maxBrightnessCount < sumInfo.maxBrightnessCount)//認識していても、次の光源最高輝度面積が既存のそれより大きい場合、書き換える
 					{
 						gPos = i;
+						sumInfo.ledPosition = i + 1;//LED位置を保存
 			            ledtable[i].max_brightness_center_x = center_x;//最大輝度の中心座標を保存
 			            ledtable[i].max_brightness_center_y = center_y;//最大輝度の中心座標を保存
 			            sumInfo.max_brightness_center_x = center_x;//最大輝度の中心座標を保存
@@ -1399,8 +1420,7 @@ namespace GhostFlareChecker
 							sumInfo.fst_most_outside_shuicho = sumInfo.shuicho;
 							sumInfo.fst_most_outside_enkeido = sumInfo.enkeido;
 
-							sumInfo.sum_most_outside_menseki += sumInfo.menseki;//面積の合計
-							ledtable[i].sum_most_outside_menseki = sumInfo.sum_most_outside_menseki;
+							ledtable[i].sum_most_outside_menseki = sumInfo.menseki;
 
 							ledtable[i].fst_most_outside_x = most_outer_x;//中心X座標を保存。GHOST判定に使用
 							ledtable[i].fst_most_outside_y = most_outer_y;//中心Y座標を保存。GHOST判定に使用
@@ -1419,8 +1439,7 @@ namespace GhostFlareChecker
 							sumInfo.snd_most_outside_shuicho = sumInfo.shuicho;
 							sumInfo.snd_most_outside_enkeido = sumInfo.enkeido;
 
-							sumInfo.sum_most_outside_menseki += sumInfo.menseki;//面積の合計
-							ledtable[i].sum_most_outside_menseki = sumInfo.sum_most_outside_menseki;
+							ledtable[i].sum_most_outside_menseki = sumInfo.menseki;
 
 							ledtable[i].snd_most_outside_x = most_outer_x;//中心X座標を保存。GHOST判定に使用
 							ledtable[i].snd_most_outside_y = most_outer_y;//中心Y座標を保存。GHOST判定に使用
@@ -1439,8 +1458,7 @@ namespace GhostFlareChecker
 							sumInfo.trd_most_outside_shuicho = sumInfo.shuicho;
 							sumInfo.trd_most_outside_enkeido = sumInfo.enkeido;
 
-							sumInfo.sum_most_outside_menseki += sumInfo.menseki;//面積の合計
-							ledtable[i].sum_most_outside_menseki = sumInfo.sum_most_outside_menseki;
+							ledtable[i].sum_most_outside_menseki = sumInfo.menseki;
 
 							ledtable[i].trd_most_outside_x = most_outer_x;//中心X座標を保存。GHOST判定に使用
 							ledtable[i].trd_most_outside_y = most_outer_y;//中心Y座標を保存。GHOST判定に使用
@@ -1451,8 +1469,7 @@ namespace GhostFlareChecker
 						}
 						else//GHOSTの島が4つ以上ある場合
 						{
-							sumInfo.sum_most_outside_menseki += sumInfo.menseki;//面積の合計
-							ledtable[i].sum_most_outside_menseki = sumInfo.sum_most_outside_menseki;
+							ledtable[i].sum_most_outside_menseki = sumInfo.menseki;
 						}
 
 					}
