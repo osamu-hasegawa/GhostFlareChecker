@@ -2341,15 +2341,11 @@ namespace GhostFlareChecker
 			{
 				labelmatrix[pos].BackColor = Color.Yellow;
 				labelmatrix[pos].Text = "FLARE";
-				labelmatrix[pos].BackColor = Color.Red;
-				labelmatrix[pos].Text = "   NG   ";
 			}
 			else if(type == 6)
 			{
 				labelmatrix[pos].BackColor = Color.Orange;
 				labelmatrix[pos].Text = "G/F";
-				labelmatrix[pos].BackColor = Color.Red;
-				labelmatrix[pos].Text = "   NG   ";
 			}
 		}
 

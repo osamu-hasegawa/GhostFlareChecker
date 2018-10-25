@@ -18,7 +18,6 @@ namespace GhostFlareChecker
 		public AF_INFO[] af_info;
 		public LedTable[] ledtable;
 		public static int gPos = 0xFF;
-		public static int ledPosCount = 0;
 		public static int colorIndex = 1;
 
 		static public SYSSET SETDATA = new SYSSET();
@@ -1027,51 +1026,55 @@ namespace GhostFlareChecker
 					buf += string.Format(",中心X座標設定値");
 					buf += string.Format(",中心Y座標設定値");
 
-					buf += string.Format(",最大輝度の中心X座標");
-					buf += string.Format(",最大輝度の中心Y座標");
+					buf += string.Format(",赤の島数");
+
+					buf += string.Format(",赤1番目X座標");
+					buf += string.Format(",赤1番目Y座標");
+					buf += string.Format(",赤1番目面積");
+					buf += string.Format(",赤1番目周囲長");
+					buf += string.Format(",赤1番目円形度");
+
+					buf += string.Format(",赤2番目X座標");
+					buf += string.Format(",赤2番目Y座標");
+					buf += string.Format(",赤2番目面積");
+					buf += string.Format(",赤2番目周囲長");
+					buf += string.Format(",赤2番目円形度");
+
+					buf += string.Format(",赤3番目X座標");
+					buf += string.Format(",赤3番目Y座標");
+					buf += string.Format(",赤3番目面積");
+					buf += string.Format(",赤3番目周囲長");
+					buf += string.Format(",赤3番目円形度");
+					buf += string.Format(",赤面積合計");
+
+					buf += string.Format(",青の島数");
+
+					buf += string.Format(",青1番目X座標");
+					buf += string.Format(",青1番目Y座標");
+					buf += string.Format(",青1番目面積");
+					buf += string.Format(",青1番目周囲長");
+					buf += string.Format(",青1番目円形度");
+
+					buf += string.Format(",青2番目X座標");
+					buf += string.Format(",青2番目Y座標");
+					buf += string.Format(",青2番目面積");
+					buf += string.Format(",青2番目周囲長");
+					buf += string.Format(",青2番目円形度");
+
+					buf += string.Format(",青3番目X座標");
+					buf += string.Format(",青3番目Y座標");
+					buf += string.Format(",青3番目面積");
+					buf += string.Format(",青3番目周囲長");
+					buf += string.Format(",青3番目円形度");
+					buf += string.Format(",青面積合計");
+
+					buf += string.Format(",最大輝度のX座標");
+					buf += string.Format(",最大輝度のY座標");
 					buf += string.Format(",最大輝度数");
 
-					buf += string.Format(",最外形(赤)の島数");
-
-					buf += string.Format(",最外形①の中心X座標");
-					buf += string.Format(",最外形①の中心Y座標");
-					buf += string.Format(",最外形①の面積");
-					buf += string.Format(",最外形①の周囲長");
-					buf += string.Format(",最外形①の円形度");
-
-					buf += string.Format(",最外形②の中心X座標");
-					buf += string.Format(",最外形②の中心Y座標");
-					buf += string.Format(",最外形②の面積");
-					buf += string.Format(",最外形②の周囲長");
-					buf += string.Format(",最外形②の円形度");
-
-					buf += string.Format(",最外形③の中心X座標");
-					buf += string.Format(",最外形③の中心Y座標");
-					buf += string.Format(",最外形③の面積");
-					buf += string.Format(",最外形③の周囲長");
-					buf += string.Format(",最外形③の円形度");
-					buf += string.Format(",最外形の合計面積");
-
-					buf += string.Format(",次外形(青)の島数");
-
-					buf += string.Format(",次外形①の中心X座標");
-					buf += string.Format(",次外形①の中心Y座標");
-					buf += string.Format(",次外形①の面積");
-					buf += string.Format(",次外形①の周囲長");
-					buf += string.Format(",次外形①の円形度");
-
-					buf += string.Format(",次外形②の中心X座標");
-					buf += string.Format(",次外形②の中心Y座標");
-					buf += string.Format(",次外形②の面積");
-					buf += string.Format(",次外形②の周囲長");
-					buf += string.Format(",次外形②の円形度");
-
-					buf += string.Format(",次外形③の中心X座標");
-					buf += string.Format(",次外形③の中心Y座標");
-					buf += string.Format(",次外形③の面積");
-					buf += string.Format(",次外形③の周囲長");
-					buf += string.Format(",次外形③の円形度");
-					buf += string.Format(",次外形の合計面積");
+					buf += string.Format(",最大輝度中心からの最大距離");
+					buf += string.Format(",最大輝度中心からの最小距離");
+					buf += string.Format(",最大距離―最小距離");
 
 					wr.WriteLine(buf);
 
@@ -1079,10 +1082,6 @@ namespace GhostFlareChecker
 					buf = string.Format("{0}", (i + 1));
 					buf += string.Format(",{0}", ledtable[i].center_x);
 					buf += string.Format(",{0}", ledtable[i].center_y);
-
-					buf += string.Format(",{0}", ledtable[i].max_brightness_center_x);
-					buf += string.Format(",{0}", ledtable[i].max_brightness_center_y);
-					buf += string.Format(",{0}", ledtable[i].maxBrightnessCount);
 
 					buf += string.Format(",{0}", ledtable[i].numberOfoutside);
 
@@ -1125,6 +1124,14 @@ namespace GhostFlareChecker
 					buf += string.Format(",{0:F2}", ledtable[i].trd_most_inside_shuicho);
 					buf += string.Format(",{0:F2}", ledtable[i].trd_most_inside_enkeido);
 					buf += string.Format(",{0:F2}", ledtable[i].sum_most_inside_menseki);
+
+					buf += string.Format(",{0}", ledtable[i].max_brightness_center_x);
+					buf += string.Format(",{0}", ledtable[i].max_brightness_center_y);
+					buf += string.Format(",{0}", ledtable[i].maxBrightnessCount);
+
+					buf += string.Format(",{0}", ledtable[i].maxLine);
+					buf += string.Format(",{0}", ledtable[i].minLine);
+					buf += string.Format(",{0}", (ledtable[i].maxLine - ledtable[i].minLine));
 
 					wr.WriteLine(buf);
 
@@ -1189,7 +1196,12 @@ namespace GhostFlareChecker
 	            if (point_val < r2)
 	            {
 					sumInfo.numberOfinside = numOfin;
-					ledtable[i].numberOfinside = numOfin;
+
+						bool isChange = false;
+						if(ledtable[i].maxBrightnessCount <= sumInfo.maxBrightnessCount)//認識していても、次の光源最高輝度面積が既存のそれより大きい場合、書き換える
+						{
+							isChange = true;
+						}
 					
 						if(numOfin == 1)//GHOSTの1つ目の島の場合
 						{
@@ -1201,14 +1213,33 @@ namespace GhostFlareChecker
 							sumInfo.fst_most_inside_enkeido = sumInfo.enkeido;
 
 							sumInfo.sum_most_inside_menseki += sumInfo.menseki;//面積の合計
-							ledtable[i].sum_most_inside_menseki = sumInfo.sum_most_inside_menseki;
+							if(isChange)
+							{
+								ledtable[i].numberOfinside = numOfin;
+								ledtable[i].sum_most_inside_menseki = sumInfo.sum_most_inside_menseki;
 
-							ledtable[i].fst_most_inside_x = outer_x;//中心X座標を保存。
-							ledtable[i].fst_most_inside_y = outer_y;//中心Y座標を保存。
+								ledtable[i].fst_most_inside_x = outer_x;//中心X座標を保存。
+								ledtable[i].fst_most_inside_y = outer_y;//中心Y座標を保存。
 
-							ledtable[i].fst_most_inside_menseki = sumInfo.menseki;
-							ledtable[i].fst_most_inside_shuicho = sumInfo.shuicho;
-							ledtable[i].fst_most_inside_enkeido = sumInfo.enkeido;
+								ledtable[i].fst_most_inside_menseki = sumInfo.menseki;
+								ledtable[i].fst_most_inside_shuicho = sumInfo.shuicho;
+								ledtable[i].fst_most_inside_enkeido = sumInfo.enkeido;
+
+								ledtable[i].snd_most_inside_x = 0;
+								ledtable[i].snd_most_inside_y = 0;
+
+								ledtable[i].snd_most_inside_menseki = 0;
+								ledtable[i].snd_most_inside_shuicho = 0;
+								ledtable[i].snd_most_inside_enkeido = 0;
+
+								ledtable[i].trd_most_inside_x = 0;
+								ledtable[i].trd_most_inside_y = 0;
+
+								ledtable[i].trd_most_inside_menseki = 0;
+								ledtable[i].trd_most_inside_shuicho = 0;
+								ledtable[i].trd_most_inside_enkeido = 0;
+
+							}
 						}
 						else if(numOfin == 2)
 						{
@@ -1220,14 +1251,18 @@ namespace GhostFlareChecker
 							sumInfo.snd_most_inside_enkeido = sumInfo.enkeido;
 
 							sumInfo.sum_most_inside_menseki += sumInfo.menseki;//面積の合計
-							ledtable[i].sum_most_inside_menseki = sumInfo.sum_most_inside_menseki;
+							if(isChange)
+							{
+								ledtable[i].numberOfinside = numOfin;
+								ledtable[i].sum_most_inside_menseki = sumInfo.sum_most_inside_menseki;
 
-							ledtable[i].snd_most_inside_x = outer_x;//中心X座標を保存。
-							ledtable[i].snd_most_inside_y = outer_y;//中心Y座標を保存。
+								ledtable[i].snd_most_inside_x = outer_x;//中心X座標を保存。
+								ledtable[i].snd_most_inside_y = outer_y;//中心Y座標を保存。
 
-							ledtable[i].snd_most_inside_menseki = sumInfo.menseki;
-							ledtable[i].snd_most_inside_shuicho = sumInfo.shuicho;
-							ledtable[i].snd_most_inside_enkeido = sumInfo.enkeido;
+								ledtable[i].snd_most_inside_menseki = sumInfo.menseki;
+								ledtable[i].snd_most_inside_shuicho = sumInfo.shuicho;
+								ledtable[i].snd_most_inside_enkeido = sumInfo.enkeido;
+							}
 						}
 						else if(numOfin == 3)
 						{
@@ -1239,19 +1274,27 @@ namespace GhostFlareChecker
 							sumInfo.trd_most_inside_enkeido = sumInfo.enkeido;
 
 							sumInfo.sum_most_inside_menseki += sumInfo.menseki;//面積の合計
-							ledtable[i].sum_most_inside_menseki = sumInfo.sum_most_inside_menseki;
+							if(isChange)
+							{
+								ledtable[i].numberOfinside = numOfin;
+								ledtable[i].sum_most_inside_menseki = sumInfo.sum_most_inside_menseki;
 
-							ledtable[i].trd_most_inside_x = outer_x;//中心X座標を保存。
-							ledtable[i].trd_most_inside_y = outer_y;//中心Y座標を保存。
+								ledtable[i].trd_most_inside_x = outer_x;//中心X座標を保存。
+								ledtable[i].trd_most_inside_y = outer_y;//中心Y座標を保存。
 
-							ledtable[i].trd_most_inside_menseki = sumInfo.menseki;
-							ledtable[i].trd_most_inside_shuicho = sumInfo.shuicho;
-							ledtable[i].trd_most_inside_enkeido = sumInfo.enkeido;
+								ledtable[i].trd_most_inside_menseki = sumInfo.menseki;
+								ledtable[i].trd_most_inside_shuicho = sumInfo.shuicho;
+								ledtable[i].trd_most_inside_enkeido = sumInfo.enkeido;
+							}
 						}
 						else//GHOSTの島が4つ以上ある場合
 						{
 							sumInfo.sum_most_inside_menseki += sumInfo.menseki;//面積の合計
-							ledtable[i].sum_most_inside_menseki = sumInfo.sum_most_inside_menseki;
+							if(isChange)
+							{
+								ledtable[i].numberOfinside = numOfin;
+								ledtable[i].sum_most_inside_menseki = sumInfo.sum_most_inside_menseki;
+							}
 						}
 						
 						break;
@@ -1273,6 +1316,7 @@ namespace GhostFlareChecker
             double point_val = 0;
             double r2 = 0;
 			gPos = 0xFF;
+			bool isChange = false;
             // 円グラフのxy座標
             for(int i = 0; i < ledtable.Length; i++)
             {
@@ -1291,11 +1335,11 @@ namespace GhostFlareChecker
 	            if (point_val < r2)
 	            {
 					sumInfo.numberOfoutside = numOfout;
-					ledtable[i].numberOfoutside = numOfout;
 					
 					//そのLED光源をまだ認識していなければ通過と判定
 					if(ledtable[i].isPass == false)
 					{
+						ledtable[i].numberOfoutside = numOfout;
 						ledtable[i].isPass = true;//円内
 						gPos = i;
 						sumInfo.ledPosition = i + 1;//LED位置を保存
@@ -1336,6 +1380,25 @@ namespace GhostFlareChecker
 					{
 						gPos = i;
 						sumInfo.ledPosition = i + 1;//LED位置を保存
+			            sumInfo.max_brightness_center_x = center_x;//最大輝度の中心座標を保存
+			            sumInfo.max_brightness_center_y = center_y;//最大輝度の中心座標を保存
+						sumInfo.maxLine = maxLine;//最大輝度中心から外形までの最大距離
+						sumInfo.minLine = minLine;//最大輝度中心から外形までの最小距離
+
+						if(ledtable[i].maxBrightnessCount <= sumInfo.maxBrightnessCount)//認識していても、次の光源最高輝度面積が既存のそれより大きい場合、書き換える
+						{
+							ledtable[i].numberOfoutside = numOfout;
+				            ledtable[i].max_brightness_center_x = center_x;//最大輝度の中心座標を保存
+				            ledtable[i].max_brightness_center_y = center_y;//最大輝度の中心座標を保存
+
+				            ledtable[i].maxBrightnessCount = sumInfo.maxBrightnessCount;//最大輝度の数を保存
+
+							ledtable[i].numberOfoutside = numOfout;
+							ledtable[i].maxLine = maxLine;//最大輝度中心から外形までの最大距離
+							ledtable[i].minLine = minLine;//最大輝度中心から外形までの最小距離
+							isChange = true;
+						}
+
 						if(numOfout == 1)//GHOSTの1つ目の島の場合
 						{
 							sumInfo.fst_most_outside_x = most_outer_x;//中心X座標を保存。GHOST判定に使用
@@ -1346,14 +1409,33 @@ namespace GhostFlareChecker
 							sumInfo.fst_most_outside_enkeido = sumInfo.enkeido;
 
 							sumInfo.sum_most_outside_menseki += sumInfo.menseki;//面積の合計
-//							ledtable[i].fst_most_outside_menseki = sumInfo.sum_most_outside_menseki;
-//
-//							ledtable[i].fst_most_outside_x = most_outer_x;//中心X座標を保存。GHOST判定に使用
-//							ledtable[i].fst_most_outside_y = most_outer_y;//中心Y座標を保存。GHOST判定に使用
-//
-//							ledtable[i].fst_most_outside_menseki = sumInfo.menseki;
-//							ledtable[i].fst_most_outside_shuicho = sumInfo.shuicho;
-//							ledtable[i].fst_most_outside_enkeido = sumInfo.enkeido;
+
+							if(isChange)
+							{
+								ledtable[i].sum_most_outside_menseki = sumInfo.sum_most_outside_menseki;
+
+								ledtable[i].fst_most_outside_x = most_outer_x;//中心X座標を保存。GHOST判定に使用
+								ledtable[i].fst_most_outside_y = most_outer_y;//中心Y座標を保存。GHOST判定に使用
+
+								ledtable[i].fst_most_outside_menseki = sumInfo.menseki;
+								ledtable[i].fst_most_outside_shuicho = sumInfo.shuicho;
+								ledtable[i].fst_most_outside_enkeido = sumInfo.enkeido;
+
+								ledtable[i].snd_most_outside_x = 0;
+								ledtable[i].snd_most_outside_y = 0;
+
+								ledtable[i].snd_most_outside_menseki = 0;
+								ledtable[i].snd_most_outside_shuicho = 0;
+								ledtable[i].snd_most_outside_enkeido = 0;
+
+								ledtable[i].trd_most_outside_x = 0;
+								ledtable[i].trd_most_outside_y = 0;
+
+								ledtable[i].trd_most_outside_menseki = 0;
+								ledtable[i].trd_most_outside_shuicho = 0;
+								ledtable[i].trd_most_outside_enkeido = 0;
+
+							}
 						}
 						else if(numOfout == 2)//GHOSTの2つ目の島の場合
 						{
@@ -1365,14 +1447,18 @@ namespace GhostFlareChecker
 							sumInfo.snd_most_outside_enkeido = sumInfo.enkeido;
 
 							sumInfo.sum_most_outside_menseki += sumInfo.menseki;//面積の合計
-//							ledtable[i].sum_most_outside_menseki = sumInfo.sum_most_outside_menseki;
-//
-//							ledtable[i].snd_most_outside_x = most_outer_x;//中心X座標を保存。GHOST判定に使用
-//							ledtable[i].snd_most_outside_y = most_outer_y;//中心Y座標を保存。GHOST判定に使用
-//
-//							ledtable[i].snd_most_outside_menseki = sumInfo.menseki;
-//							ledtable[i].snd_most_outside_shuicho = sumInfo.shuicho;
-//							ledtable[i].snd_most_outside_enkeido = sumInfo.enkeido;
+
+							if(isChange)
+							{
+								ledtable[i].sum_most_outside_menseki = sumInfo.sum_most_outside_menseki;
+
+								ledtable[i].snd_most_outside_x = most_outer_x;//中心X座標を保存。GHOST判定に使用
+								ledtable[i].snd_most_outside_y = most_outer_y;//中心Y座標を保存。GHOST判定に使用
+
+								ledtable[i].snd_most_outside_menseki = sumInfo.menseki;
+								ledtable[i].snd_most_outside_shuicho = sumInfo.shuicho;
+								ledtable[i].snd_most_outside_enkeido = sumInfo.enkeido;
+							}
 						}
 						else if(numOfout == 3)//GHOSTの3つ目の島の場合
 						{
@@ -1384,42 +1470,44 @@ namespace GhostFlareChecker
 							sumInfo.trd_most_outside_enkeido = sumInfo.enkeido;
 
 							sumInfo.sum_most_outside_menseki += sumInfo.menseki;//面積の合計
-//							ledtable[i].sum_most_outside_menseki = sumInfo.sum_most_outside_menseki;
-//
-//							ledtable[i].trd_most_outside_x = most_outer_x;//中心X座標を保存。GHOST判定に使用
-//							ledtable[i].trd_most_outside_y = most_outer_y;//中心Y座標を保存。GHOST判定に使用
-//
-//							ledtable[i].trd_most_outside_menseki = sumInfo.menseki;
-//							ledtable[i].trd_most_outside_shuicho = sumInfo.shuicho;
-//							ledtable[i].trd_most_outside_enkeido = sumInfo.enkeido;
+
+							if(isChange)
+							{
+								ledtable[i].sum_most_outside_menseki = sumInfo.sum_most_outside_menseki;
+
+								ledtable[i].trd_most_outside_x = most_outer_x;//中心X座標を保存。GHOST判定に使用
+								ledtable[i].trd_most_outside_y = most_outer_y;//中心Y座標を保存。GHOST判定に使用
+
+								ledtable[i].trd_most_outside_menseki = sumInfo.menseki;
+								ledtable[i].trd_most_outside_shuicho = sumInfo.shuicho;
+								ledtable[i].trd_most_outside_enkeido = sumInfo.enkeido;
+							}
 						}
 						else//GHOSTの島が4つ以上ある場合
 						{
 							sumInfo.sum_most_outside_menseki += sumInfo.menseki;//面積の合計
-//							ledtable[i].sum_most_outside_menseki = sumInfo.sum_most_outside_menseki;
+							if(isChange)
+							{
+								ledtable[i].sum_most_outside_menseki = sumInfo.sum_most_outside_menseki;
+							}
 						}
 					}
 
+#if false
 					if(ledtable[i].isPass == true && ledtable[i].maxBrightnessCount < sumInfo.maxBrightnessCount)//認識していても、次の光源最高輝度面積が既存のそれより大きい場合、書き換える
 					{
 						gPos = i;
 						sumInfo.ledPosition = i + 1;//LED位置を保存
 			            ledtable[i].max_brightness_center_x = center_x;//最大輝度の中心座標を保存
 			            ledtable[i].max_brightness_center_y = center_y;//最大輝度の中心座標を保存
-			            sumInfo.max_brightness_center_x = center_x;//最大輝度の中心座標を保存
-			            sumInfo.max_brightness_center_y = center_y;//最大輝度の中心座標を保存
-
 			            ledtable[i].maxBrightnessCount = sumInfo.maxBrightnessCount;//最大輝度の数を保存
+
+						ledtable[i].numberOfoutside = numOfout;
+						ledtable[i].maxLine = maxLine;//最大輝度中心から外形までの最大距離
+						ledtable[i].minLine = minLine;//最大輝度中心から外形までの最小距離
 
 						if(numOfout == 1)
 						{
-							sumInfo.fst_most_outside_x = most_outer_x;//中心X座標を保存。GHOST判定に使用
-							sumInfo.fst_most_outside_y = most_outer_y;//中心Y座標を保存。GHOST判定に使用
-
-							sumInfo.fst_most_outside_menseki = sumInfo.menseki;
-							sumInfo.fst_most_outside_shuicho = sumInfo.shuicho;
-							sumInfo.fst_most_outside_enkeido = sumInfo.enkeido;
-
 							ledtable[i].sum_most_outside_menseki = sumInfo.menseki;
 
 							ledtable[i].fst_most_outside_x = most_outer_x;//中心X座標を保存。GHOST判定に使用
@@ -1432,13 +1520,6 @@ namespace GhostFlareChecker
 						}
 						else if(numOfout == 2)
 						{
-							sumInfo.snd_most_outside_x = most_outer_x;//中心X座標を保存。GHOST判定に使用
-							sumInfo.snd_most_outside_y = most_outer_y;//中心Y座標を保存。GHOST判定に使用
-
-							sumInfo.snd_most_outside_menseki = sumInfo.menseki;
-							sumInfo.snd_most_outside_shuicho = sumInfo.shuicho;
-							sumInfo.snd_most_outside_enkeido = sumInfo.enkeido;
-
 							ledtable[i].sum_most_outside_menseki = sumInfo.menseki;
 
 							ledtable[i].snd_most_outside_x = most_outer_x;//中心X座標を保存。GHOST判定に使用
@@ -1451,13 +1532,6 @@ namespace GhostFlareChecker
 						}
 						else if(numOfout == 3)
 						{
-							sumInfo.trd_most_outside_x = most_outer_x;//中心X座標を保存。GHOST判定に使用
-							sumInfo.trd_most_outside_y = most_outer_y;//中心Y座標を保存。GHOST判定に使用
-
-							sumInfo.trd_most_outside_menseki = sumInfo.menseki;
-							sumInfo.trd_most_outside_shuicho = sumInfo.shuicho;
-							sumInfo.trd_most_outside_enkeido = sumInfo.enkeido;
-
 							ledtable[i].sum_most_outside_menseki = sumInfo.menseki;
 
 							ledtable[i].trd_most_outside_x = most_outer_x;//中心X座標を保存。GHOST判定に使用
@@ -1471,8 +1545,8 @@ namespace GhostFlareChecker
 						{
 							ledtable[i].sum_most_outside_menseki = sumInfo.menseki;
 						}
-
 					}
+#endif
 
 					break;
 				}
@@ -1546,10 +1620,9 @@ namespace GhostFlareChecker
 				}
 			}
 		}
-		
+
 		public void SetLedInit()
 		{
-			ledPosCount = 0;
 			for(int i = 0; i < ledtable.Length; i++)
             {
 				ledtable[i].isPass = false;
