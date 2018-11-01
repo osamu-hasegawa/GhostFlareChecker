@@ -93,10 +93,30 @@ namespace GhostFlareChecker
 
 		private void GetShasenMaxMin(int total, out int max, out int min)
 		{
+
+			int width, height;
+			CheckerManager.form3.GetPreviewWindow(out width, out height);//画像の右端・下端座標を取得
+			width -= 2;//画像の座標調整
+			height -= 2;//画像の座標調整
+
 			max = 0;
 			min = 10000;
 			for(int i = 0; i < total; i++)
 			{
+				if(CheckerManager.m_DataController.triInfo[i].x < 2//左端
+				|| CheckerManager.m_DataController.triInfo[i].x > width//右端
+				)
+				{
+					continue;//外形座標が端と一致しているものは除外する
+				}
+
+				if(CheckerManager.m_DataController.triInfo[i].y < 2//上端
+				|| CheckerManager.m_DataController.triInfo[i].y > height//下端
+				)
+				{
+					continue;//外形座標が端と一致しているものは除外する
+				}
+
 				int mindata, maxdata;
 				mindata = maxdata = CheckerManager.m_DataController.triInfo[i].shasen;
 				if(min > mindata)
@@ -815,99 +835,7 @@ namespace GhostFlareChecker
 
 		public void test(int type)
 		{
-			DateTime dt = DateTime.Now;
-			string pathstr = string.Format("{0:D04}{1:D02}{2:D02}{3:D02}{4:D02}", dt.Year, dt.Month, dt.Day, dt.Hour, dt.Minute);
-			if(type == 1)
-			{
-				string csvpath = CheckerManager.m_DataController.GetCSVFileName("af.csv");
-				string buf = "";
-				StreamWriter wr;
-
-				try {
-					wr = new StreamWriter(csvpath, true, Encoding.Default);
-
-					buf = string.Format("'{0}", pathstr);
-					buf += string.Format(",Motor Address");
-					buf += string.Format(",外形認識した光源面積");
-
-					wr.WriteLine(buf);
-					wr.Close();
-				}
-				catch (Exception) {
-				}
-
-	            for (int i = 0; i < yout.Length; i++)
-			    {
-					Console.WriteLine("index={0},address={1},menseki={2:f2}",
-					i,
-					xout[i],
-					yout[i]
-					);
-
-					csvpath = CheckerManager.m_DataController.GetCSVFileName("af.csv");
-					buf = "";
-					try {
-						wr = new StreamWriter(csvpath, true, Encoding.Default);
-
-						buf = string.Format("{0}", i);
-						buf += string.Format(",{0}", xout[i]);
-						buf += string.Format(",{0:f2}", yout[i]);
-
-						wr.WriteLine(buf);
-						wr.Close();
-					}
-					catch (Exception) {
-					}
-				}
-			}
-			else if(type == 2)
-			{
-				string csvpath = CheckerManager.m_DataController.GetCSVFileName("af.csv");
-				string buf = "";
-				StreamWriter wr;
-				try {
-					wr = new StreamWriter(csvpath, true, Encoding.Default);
-
-					buf = string.Format("'{0}", pathstr);
-					buf += string.Format(",Motor Address");
-					buf += string.Format(",光源の白色数");
-
-					wr.WriteLine(buf);
-					wr.Close();
-				}
-				catch (Exception) {
-				}
-
-	            for (int i = 0; i < yout.Length; i++)
-			    {
-					Console.WriteLine("index={0},address={1},whitecount={2}",
-					i,
-					xout[i],
-					(int)yout[i]
-					);
-
-					csvpath = CheckerManager.m_DataController.GetCSVFileName("af.csv");
-					buf = "";
-					try {
-						wr = new StreamWriter(csvpath, true, Encoding.Default);
-
-						buf = string.Format("{0}", i);
-						buf += string.Format(",{0}", xout[i]);
-						buf += string.Format(",{0}", (int)yout[i]);
-
-						wr.WriteLine(buf);
-						wr.Close();
-					}
-					catch (Exception) {
-					}
-
-				}
-
-            }
 		}
-
-
-
 
 		public void GetSplineData(int n, int x1, out double yout)
 		{

@@ -105,7 +105,6 @@ namespace GhostFlareChecker
 		private int m_PreviewMode = -1;
 		static string strFileName = null;
 		private Bitmap grabBitmap = null;
-		private bool isDoWork = false;
 
 		System.Drawing.Bitmap ok_img;
 		System.Drawing.Bitmap ng_img;
@@ -1184,7 +1183,6 @@ namespace GhostFlareChecker
 
 		public void DoImageContrast()
 		{
-			isDoWork = true;
 
 			if(grabBitmap != null)
 			{
@@ -1202,13 +1200,11 @@ namespace GhostFlareChecker
 			(int)numericUpDown44.Value, (int)numericUpDown45.Value, (int)numericUpDown46.Value, (int)numericUpDown47.Value);
 			textBox26.Text = string.Format("{0:f16}", gCONTRAST);
 
-			isDoWork = false;
 		}
 
 
 		public void DoImageShapeLine()
 		{
-			isDoWork = true;
 
 			if(grabBitmap != null)
 			{
@@ -1260,12 +1256,10 @@ namespace GhostFlareChecker
 			}
 
 
-			isDoWork = false;
 		}
 
 		public void DoImageAnalyze()
 		{
-			isDoWork = true;
 
 			if(grabBitmap != null)
 			{
@@ -1447,16 +1441,11 @@ namespace GhostFlareChecker
 				DrawInfoChart(total);
 			}
 
-			isDoWork = false;
 		}
 
 		public bool IsDoWork()
 		{
-#if false
-			return isDoWork;//busyならハンドラ側へ返す
-#else
 			return false;
-#endif
 		}
 
 		//カメラの割り込みハンドラから割り込んでくる契機
@@ -1512,7 +1501,7 @@ namespace GhostFlareChecker
 				CheckerManager.m_MotorController.LedReset();//LEDリセット
 				button32_Click(sender, e);//Captureを止める
 
-				CheckerManager.m_DataController.CSV_LED_RESULT_WRITE();//全LED情報をLED毎のCSVに保存する
+				CheckerManager.m_DataController.CSV_LED_RESULT_WRITE(textBox31.Text);//全LED情報をLED毎のCSVに保存する
 
 				if(CheckerManager.m_DataController.IsGhostFlareCheck())
 				{

@@ -276,7 +276,7 @@ namespace GhostFlareChecker
 		}
 
 
-		public string GetLedCSVFileName(string str, int ledPos)
+		public string GetLedCSVFileName(string str, int ledPos, string lenzeNo)
 		{
 			//日付、時間を取得
 			DateTime dt = DateTime.Now;
@@ -284,7 +284,7 @@ namespace GhostFlareChecker
 			string pathdst = GET_DOC_PATH(pathstr);
 
 			//S/Nをヘッダに付ける
-			string lenzID = GetLenzeID();
+			string lenzID = GetLenzeID(lenzeNo);
 			pathdst = pathdst + "_" + lenzID;
 
 			if(!Directory.Exists(pathdst))
@@ -296,9 +296,15 @@ namespace GhostFlareChecker
             return pathAndName;
 		}
 
-		public string GetLenzeID()
+		public string GetLenzeID(string lenzeNo)
 		{
-			return "L12345678";//TODO
+			string	lenzeStr = "NO_NUMBER";
+			if(lenzeNo == "")
+			{
+				return lenzeStr;
+			}
+
+			return lenzeNo;
 		}
 
 		public string GetCSVFileName(string str)
@@ -1012,11 +1018,11 @@ namespace GhostFlareChecker
 			}
 		}
 
-		public void CSV_LED_RESULT_WRITE()
+		public void CSV_LED_RESULT_WRITE(string lenzeNo)
 		{
 			for(int i = 0; i < ledtable.Length; i++)
 			{
-				string csvpath = GetLedCSVFileName(".csv", (i + 1));
+				string csvpath = GetLedCSVFileName(".csv", (i + 1), lenzeNo);
 				string buf = "";
 				StreamWriter wr;
 				try {
@@ -1142,30 +1148,6 @@ namespace GhostFlareChecker
 			}
 		}
 
-
-
-#if false
-		public void f_write(string path, CircleInfo dat)
-		{
-			string buf;
-			StreamWriter wr;
-			try {
-				/*				rd = new StreamReader(filename, Encoding.GetEncoding("Shift_JIS"));*/
-				wr = new StreamWriter(path, true, Encoding.Default);
-
-				buf = string.Format("{0}", dat.x);
-				buf += string.Format(",{0}", dat.y);
-				buf += string.Format(",{0:F2}", dat.s);
-				buf += string.Format(",{0:F2}", dat.l);
-				buf += string.Format(",{0:F2}", dat.c);
-
-				wr.WriteLine(buf);
-				wr.Close();
-			}
-			catch (Exception) {
-			}
-		}
-#endif	
 
 		//特定の点が、任意の点を中心とした円の内側にあるか。青色＝２番目の外形
 		public void IsPointInsideArea(int center_x, int center_y, int numOfin, int outer_x, int outer_y)
@@ -1393,7 +1375,6 @@ namespace GhostFlareChecker
 
 				            ledtable[i].maxBrightnessCount = sumInfo.maxBrightnessCount;//最大輝度の数を保存
 
-							ledtable[i].numberOfoutside = numOfout;
 							ledtable[i].maxLine = maxLine;//最大輝度中心から外形までの最大距離
 							ledtable[i].minLine = minLine;//最大輝度中心から外形までの最小距離
 							isChange = true;
@@ -1493,60 +1474,6 @@ namespace GhostFlareChecker
 						}
 					}
 
-#if false
-					if(ledtable[i].isPass == true && ledtable[i].maxBrightnessCount < sumInfo.maxBrightnessCount)//認識していても、次の光源最高輝度面積が既存のそれより大きい場合、書き換える
-					{
-						gPos = i;
-						sumInfo.ledPosition = i + 1;//LED位置を保存
-			            ledtable[i].max_brightness_center_x = center_x;//最大輝度の中心座標を保存
-			            ledtable[i].max_brightness_center_y = center_y;//最大輝度の中心座標を保存
-			            ledtable[i].maxBrightnessCount = sumInfo.maxBrightnessCount;//最大輝度の数を保存
-
-						ledtable[i].numberOfoutside = numOfout;
-						ledtable[i].maxLine = maxLine;//最大輝度中心から外形までの最大距離
-						ledtable[i].minLine = minLine;//最大輝度中心から外形までの最小距離
-
-						if(numOfout == 1)
-						{
-							ledtable[i].sum_most_outside_menseki = sumInfo.menseki;
-
-							ledtable[i].fst_most_outside_x = most_outer_x;//中心X座標を保存。GHOST判定に使用
-							ledtable[i].fst_most_outside_y = most_outer_y;//中心Y座標を保存。GHOST判定に使用
-
-							ledtable[i].fst_most_outside_menseki = sumInfo.menseki;
-							ledtable[i].fst_most_outside_shuicho = sumInfo.shuicho;
-							ledtable[i].fst_most_outside_enkeido = sumInfo.enkeido;
-
-						}
-						else if(numOfout == 2)
-						{
-							ledtable[i].sum_most_outside_menseki = sumInfo.menseki;
-
-							ledtable[i].snd_most_outside_x = most_outer_x;//中心X座標を保存。GHOST判定に使用
-							ledtable[i].snd_most_outside_y = most_outer_y;//中心Y座標を保存。GHOST判定に使用
-
-							ledtable[i].snd_most_outside_menseki = sumInfo.menseki;
-							ledtable[i].snd_most_outside_shuicho = sumInfo.shuicho;
-							ledtable[i].snd_most_outside_enkeido = sumInfo.enkeido;
-
-						}
-						else if(numOfout == 3)
-						{
-							ledtable[i].sum_most_outside_menseki = sumInfo.menseki;
-
-							ledtable[i].trd_most_outside_x = most_outer_x;//中心X座標を保存。GHOST判定に使用
-							ledtable[i].trd_most_outside_y = most_outer_y;//中心Y座標を保存。GHOST判定に使用
-
-							ledtable[i].trd_most_outside_menseki = sumInfo.menseki;
-							ledtable[i].trd_most_outside_shuicho = sumInfo.shuicho;
-							ledtable[i].trd_most_outside_enkeido = sumInfo.enkeido;
-						}
-						else//GHOSTの島が4つ以上ある場合
-						{
-							ledtable[i].sum_most_outside_menseki = sumInfo.menseki;
-						}
-					}
-#endif
 
 					break;
 				}
@@ -1554,20 +1481,6 @@ namespace GhostFlareChecker
 
 		}
 
-		//63個全てのLED点灯を網羅したか。
-		public bool IsFullLedCheck()
-		{
-			bool allLedflag = true;
-			for(int i = 0; i < ledtable.Length; i++)
-            {
-				if(ledtable[i].result == 0)//初期値が一つでもあったら
-				{
-					allLedflag = false;
-					break;
-				}
-			}
-			return allLedflag;
-		}
 
 		//63個全てのLED光源として認識したか(光源内に入ったか)。
 		public bool IsAllLed()
